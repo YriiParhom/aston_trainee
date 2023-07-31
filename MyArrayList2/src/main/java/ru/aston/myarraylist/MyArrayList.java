@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 
-public class MyArrayList<E> implements MyList<E>{
+public class MyArrayList<E> implements MyList<E> {
 
     private final int DEFAULT_ARRAY_SIZE = 16;
 
@@ -26,7 +26,7 @@ public class MyArrayList<E> implements MyList<E>{
         this.elementsInArray = 0;
     }
 
-    public void add (E element) {
+    public void add(E element) {
 
         if (isArrayFull()) {
             copyArray();
@@ -86,7 +86,7 @@ public class MyArrayList<E> implements MyList<E>{
         try {
             element = (E) this.arrayList[index];
         } catch (IndexOutOfBoundsException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
 
         return element;
@@ -100,18 +100,19 @@ public class MyArrayList<E> implements MyList<E>{
     @Override
     public void remove(int index) {
 
-        this.arrayList[index] = null;
-        this.elementsInArray--;
+        for (int i = index; i < this.elementsInArray; i++) {
+            this.arrayList[i] = arrayList[i + 1];
+            this.arrayList[elementsInArray] = null;
+            this.elementsInArray--;
+        }
     }
 
     @Override
     public void remove(Object element) {
 
-        for(int i = 0; i < this.elementsInArray; i++) {
+        for (int i = 0; i < this.elementsInArray; i++) {
             if (element.equals(this.arrayList[i])) {
-                this.arrayList[i] = null;
-                this.elementsInArray--;
-                return;
+                remove(i);
             }
         }
     }
@@ -119,45 +120,49 @@ public class MyArrayList<E> implements MyList<E>{
     @Override
     public <E> void sort(Comparator<? super E> comparator) {
 
-        mergeSort((E[])this.arrayList, 0, arrayList.length - 1, comparator);;
+        trimToSize();
+        mergeSort((E[]) this.arrayList, 0, arrayList.length - 1, comparator);
     }
 
-    private static <E> void mergeSort(E[] a, int from, int to, Comparator<? super E> comp) {
-        if (from == to)
-            return;
-        int mid = (from + to) / 2;
-        mergeSort(a, from, mid, comp);
-        mergeSort(a, mid + 1, to, comp);
-        merge(a, from, mid, to, comp);
+    private <E> void mergeSort(E[] array, int low, int high, Comparator<? super E> comparator) {
+        if (high <= low) return;
+
+        int mid = (low + high) / 2;
+        mergeSort(array, low, mid, comparator);
+        mergeSort(array, mid + 1, high, comparator);
+        merge(array, low, mid, high, comparator);
     }
-    private static <E> void merge(E[] a, int from, int mid, int to, Comparator<? super E> comp) {
-        int n = to - from + 1;
-        Object[] values = new Object[n];
-        int fromValue = from;
-        int middleValue = mid + 1;
-        int index = 0;
-        while (fromValue <= mid && middleValue <= to) {
-            if (comp.compare(a[fromValue], a[middleValue]) < 0) {
-                values[index] = a[fromValue];
-                fromValue++;
-            } else {
-                values[index] = a[middleValue];
-                middleValue++;
+
+    private <E> void merge(E[] array, int low, int mid, int high, Comparator<? super E> comparator) {
+
+        Object[] leftArray = new Object[mid - low + 1];
+        Object[] rightArray = new Object[high - mid];
+
+        for (int i = 0; i < leftArray.length; i++)
+            leftArray[i] = array[low + i];
+        for (int i = 0; i < rightArray.length; i++)
+            rightArray[i] = array[mid + i + 1];
+
+        int leftIndex = 0;
+        int rightIndex = 0;
+
+        for (int i = low; i < high + 1; i++) {
+            if (leftIndex < leftArray.length && rightIndex < rightArray.length) {
+                if (comparator.compare((E) leftArray[leftIndex], (E) rightArray[rightIndex]) < 0) {
+                    array[i] = (E) leftArray[leftIndex];
+                    leftIndex++;
+                } else {
+                    array[i] = (E) rightArray[rightIndex];
+                    rightIndex++;
+                }
+            } else if (leftIndex < leftArray.length) {
+                array[i] = (E) leftArray[leftIndex];
+                leftIndex++;
+            } else if (rightIndex < rightArray.length) {
+                array[i] = (E) rightArray[rightIndex];
+                rightIndex++;
             }
-            index++;
         }
-        while (fromValue <= mid) {
-            values[index] = a[fromValue];
-            fromValue++;
-            index++;
-        }
-        while (middleValue <= to) {
-            values[index] = a[middleValue];
-            middleValue++;
-            index++;
-        }
-        for (index = 0; index < n; index++)
-            a[from + index] = (E) values[index];
     }
 
     private boolean isArrayFull() {
@@ -186,6 +191,12 @@ public class MyArrayList<E> implements MyList<E>{
 
     private int increaseArraySize() {
         return this.arrayList.length * 2;
+    }
+
+    public void trimToSize() {
+        Object[] temp = new Object[elementsInArray];
+        System.arraycopy(arrayList, 0, temp, 0, temp.length);
+        this.arrayList = temp;
     }
 
     @Override

@@ -22,5 +22,5 @@ public interface MyList<E> {
 
     void remove(Object o);
 
-   <E> void sort(Comparator<? super E> comparator);
+    <E> void sort(Comparator<? super E> comparator);
 }
