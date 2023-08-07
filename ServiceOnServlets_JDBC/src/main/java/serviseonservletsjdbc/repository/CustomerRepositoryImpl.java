@@ -12,20 +12,20 @@ import java.util.List;
 
 public class CustomerRepositoryImpl extends JDBCUtil implements CustomerRepository {
 
-    private final String INSERT_INTO_TABLE = "insert into customer values (?,?,?)";
+    private final String INSERT_INTO_TABLE = "insert into customer (name, surname) values (?,?)";
     private final String DELETE_BY_ID = "delete from customer where id = ?";
     private final String FIND_CUSTOMER_BY_ID = "select * from customer where id = ?";
     private final String FIND_ALL_CUSTOMERS = "select * from customer";
 
 
-    public void saveUser(Customer customer) throws SQLException {
+    public void saveUser(Customer customer) {
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(INSERT_INTO_TABLE)) {
 
-            preparedStatement.setString(2, customer.getName());
-            preparedStatement.setString(3, customer.getSurname());
+            preparedStatement.setString(1, customer.getName());
+            preparedStatement.setString(2, customer.getSurname());
 
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,11 +34,9 @@ public class CustomerRepositoryImpl extends JDBCUtil implements CustomerReposito
 
     public void deleteUserById(long id) {
 
-        Customer customer = new Customer();
-
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_BY_ID)) {
 
-            preparedStatement.setLong(1, customer.getId());
+            preparedStatement.setLong(1, id);
 
             preparedStatement.executeUpdate();
 

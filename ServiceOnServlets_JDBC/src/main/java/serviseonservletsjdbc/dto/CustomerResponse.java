@@ -2,20 +2,20 @@ package serviseonservletsjdbc.dto;
 
 public class CustomerResponse {
 
-    private long id;
+    private Long id;
     private String name;
     private String surname;
 
     public CustomerResponse() {
     }
 
-    public CustomerResponse(long id, String name, String surname) {
+    public CustomerResponse(Long id, String name, String surname) {
         this.id = id;
         this.name = name;
         this.surname = surname;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -27,7 +27,7 @@ public class CustomerResponse {
         this.surname = surname;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

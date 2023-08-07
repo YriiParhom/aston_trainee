@@ -1,14 +1,12 @@
 CREATE TABLE customer
 (
-
     id      bigserial primary key,
     name    varchar(100) not null,
     surname varchar(100) not null
 );
 
-CREATE TABLE customer_order
+CREATE TABLE orders
 (
-
     id          bigserial primary key,
     name        varchar(100) not null,
     price       decimal(8, 2),
@@ -19,7 +17,6 @@ CREATE TABLE customer_order
 
 CREATE TABLE promo
 (
-
     id          bigserial primary key,
     name        varchar(100) not null,
     description varchar(255) not null
@@ -28,7 +25,6 @@ CREATE TABLE promo
 
 CREATE TABLE customer_promo
 (
-
     customer_id int not null,
     promo_id    int not null,
     primary key (customer_id, promo_id),

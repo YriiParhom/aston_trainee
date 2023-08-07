@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
-public class MainServlet extends HttpServlet {
+public class CustomerServlet extends HttpServlet {
 
     private CustomerController customerController;
     private final static String API_PATH = "/api/customers";

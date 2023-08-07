@@ -27,7 +27,7 @@ public class CustomerController {
         final Gson gson = new Gson();
         final Customer customer = gson.fromJson(body, Customer.class);
         customerService.saveUser(customer);
-        response.getWriter().print(gson.toJson(customer));
+        response.getWriter().print(gson.toJson("User creation is successful"));
     }
 
     public void deleteById(Long id, HttpServletResponse response) throws IOException {

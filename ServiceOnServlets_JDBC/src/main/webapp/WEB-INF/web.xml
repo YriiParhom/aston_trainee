@@ -7,7 +7,7 @@
 
   <servlet>
     <servlet-name>main</servlet-name>
-    <servlet-class>serviseonservletsjdbc.servlet.MainServlet</servlet-class>
+    <servlet-class>serviseonservletsjdbc.servlet.CustomerServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
 
