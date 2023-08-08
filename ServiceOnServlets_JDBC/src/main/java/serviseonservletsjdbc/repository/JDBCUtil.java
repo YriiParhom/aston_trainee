@@ -35,7 +35,7 @@ public class JDBCUtil {
         Properties properties = new Properties();
 
         try (FileInputStream fileInputStream = new FileInputStream(
-                "D:\\JavaProjects\\aston_trainee\\ServiceOnServlets_JDBC\\src\\main\\resources\\application.properties")) {
+                "D:\\JavaProjects\\AstonTrainee\\ServiceOnServlets_JDBC\\src\\main\\resources\\application.properties")) {
 
             properties.load(fileInputStream);
 

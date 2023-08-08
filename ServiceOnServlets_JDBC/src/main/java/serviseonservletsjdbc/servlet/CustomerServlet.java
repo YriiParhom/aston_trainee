@@ -16,10 +16,9 @@ import java.util.regex.Pattern;
 
 public class CustomerServlet extends HttpServlet {
 
-    private CustomerController customerController;
     private final static String API_PATH = "/api/customers";
     private final static String API_PATH_WITH_NUMBERS = API_PATH + "/\\d+";
-
+    private CustomerController customerController;
 
     @Override
     public void init() throws ServletException {
@@ -33,7 +32,7 @@ public class CustomerServlet extends HttpServlet {
 
         String path = req.getRequestURI();
 
-        if(Pattern.matches(API_PATH_WITH_NUMBERS, path)) {
+        if (Pattern.matches(API_PATH_WITH_NUMBERS, path)) {
             final long id = extractId(path);
             customerController.findCustomerById(id, resp);
             return;
@@ -54,7 +53,7 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String path = req.getRequestURI();
-        if(Pattern.matches(API_PATH_WITH_NUMBERS, path)) {
+        if (Pattern.matches(API_PATH_WITH_NUMBERS, path)) {
             long id = extractId(path);
             customerController.deleteById(id, resp);
         }

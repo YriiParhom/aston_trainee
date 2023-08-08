@@ -6,6 +6,7 @@ public class CustomerResponse {
     private String name;
     private String surname;
 
+
     public CustomerResponse() {
     }
 

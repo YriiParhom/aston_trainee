@@ -12,17 +12,26 @@ public class OrderResponse {
 
     private Date date;
 
-    private long customerId;
+    private String customerName;
+
+    private String customerSurname;
 
     public OrderResponse() {
     }
 
-    public OrderResponse(Long id, String name, Double price, Date date, long customerId) {
+    public OrderResponse(
+            Long id,
+            String name,
+            Double price,
+            Date date,
+            String customerName,
+            String customerSurname) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.date = date;
-        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerSurname = customerSurname;
     }
 
     public void setId(Long id) {
@@ -41,8 +50,12 @@ public class OrderResponse {
         this.date = date;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setCustomerSurname(String customerSurname) {
+        this.customerSurname = customerSurname;
     }
 
     public Long getId() {
@@ -61,7 +74,11 @@ public class OrderResponse {
         return date;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getCustomerSurname() {
+        return customerSurname;
     }
 }

@@ -10,8 +10,8 @@ CREATE TABLE orders
     id          bigserial primary key,
     name        varchar(100) not null,
     price       decimal(8, 2),
-    date        date,
-    customer_id int,
+    date        date not null ,
+    customer_id int not null ,
     foreign key (customer_id) references customer
 );
 
