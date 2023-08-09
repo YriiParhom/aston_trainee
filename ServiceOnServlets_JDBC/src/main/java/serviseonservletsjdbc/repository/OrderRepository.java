@@ -12,9 +12,9 @@ public interface OrderRepository {
 
     void saveOrder(Order orderRequest) throws SQLException;
 
-    void deleteOrderById(long id);
+    void deleteOrderById(Long id);
 
-    OrderResponse findOrderById(long id);
+    OrderResponse findOrderById(Long id);
 
     List<OrderResponse> findAllOrders();
 }

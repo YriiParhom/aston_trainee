@@ -10,8 +10,6 @@ public class OrderResponse {
 
     private Double price;
 
-    private Date date;
-
     private String customerName;
 
     private String customerSurname;
@@ -23,13 +21,11 @@ public class OrderResponse {
             Long id,
             String name,
             Double price,
-            Date date,
             String customerName,
             String customerSurname) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.date = date;
         this.customerName = customerName;
         this.customerSurname = customerSurname;
     }
@@ -44,10 +40,6 @@ public class OrderResponse {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public void setCustomerName(String customerName) {
@@ -68,10 +60,6 @@ public class OrderResponse {
 
     public Double getPrice() {
         return price;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public String getCustomerName() {

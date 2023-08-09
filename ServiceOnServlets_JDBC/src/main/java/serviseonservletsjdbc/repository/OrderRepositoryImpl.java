@@ -10,11 +10,16 @@ import java.util.List;
 
 public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
 
-    private final String INSERT_INTO_TABLE = "insert into orders(name, price, date, customer_id)" +
-            "values (?, ?, ?, ?)";
+    private final String INSERT_INTO_TABLE = "insert into orders(order_name, price, customer_id)" +
+            "values (?, ?, ?)";
+
     private final String DELETE_ORDER_BY_ID = "delete from orders where id = ?";
+
     private final String FIND_ORDER_BY_ID =
             "select * from orders left join customer c on orders.customer_id = c.id where orders.id = ? ";
+
+    private static final String FIND_ALL_ORDERS =
+            "select * from orders left join customer c on orders.customer_id = c.id";
 
 
     @Override
@@ -24,8 +29,7 @@ public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
 
             preparedStatement.setString(1, orderRequest.getName());
             preparedStatement.setDouble(2, orderRequest.getPrice());
-            preparedStatement.setDate(3, (Date) orderRequest.getDate());
-            preparedStatement.setLong(4, orderRequest.getCustomerId());
+            preparedStatement.setLong(3, orderRequest.getOwner());
 
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -34,7 +38,7 @@ public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
     }
 
     @Override
-    public void deleteOrderById(long id) {
+    public void deleteOrderById(Long id) {
 
         try(PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_ORDER_BY_ID)) {
 
@@ -48,7 +52,7 @@ public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
     }
 
     @Override
-    public OrderResponse findOrderById(long id) {
+    public OrderResponse findOrderById(Long id) {
 
         OrderResponse orderResponse = new OrderResponse();
 
@@ -58,11 +62,10 @@ public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
 
             while (resultSet.next()) {
                 orderResponse.setId(resultSet.getLong("id"));
-                orderResponse.setName(resultSet.getString("name"));
+                orderResponse.setName(resultSet.getString("order_name"));
                 orderResponse.setPrice(resultSet.getDouble("price"));
-                orderResponse.setDate(resultSet.getDate("date"));
-                orderResponse.setCustomerName(resultSet.getString("name"));
-                orderResponse.setCustomerSurname(resultSet.getString("surname"));
+                orderResponse.setCustomerName(resultSet.getString("customer_name"));
+                orderResponse.setCustomerSurname(resultSet.getString("customer_surname"));
             }
 
         } catch (SQLException e) {
@@ -79,16 +82,15 @@ public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
 
         try(Statement statement = getConnection().createStatement()) {
 
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery(FIND_ALL_ORDERS);
 
             while(resultSet.next()) {
                 orders.add(new OrderResponse(
                         resultSet.getLong("id"),
-                        resultSet.getString("name"),
+                        resultSet.getString("order_name"),
                         resultSet.getDouble("price"),
-                        resultSet.getDate("date"),
-                        resultSet.getString("name"),
-                        resultSet.getString("surname")
+                        resultSet.getString("customer_name"),
+                        resultSet.getString("customer_surname")
                 ));
             }
 

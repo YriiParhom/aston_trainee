@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CustomerRepositoryImpl extends JDBCUtil implements CustomerRepository {
 
-    private final String INSERT_INTO_TABLE = "insert into customer (name, surname) values (?,?)";
+    private final String INSERT_INTO_TABLE = "insert into customer (customer_name, customer_surname) values (?,?)";
     private final String DELETE_BY_ID = "delete from customer where id = ?";
     private final String FIND_CUSTOMER_BY_ID = "select * from customer where id = ?";
     private final String FIND_ALL_CUSTOMERS = "select * from customer";
@@ -43,7 +43,6 @@ public class CustomerRepositoryImpl extends JDBCUtil implements CustomerReposito
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public CustomerResponse findUserById(long id) {
@@ -56,8 +55,8 @@ public class CustomerRepositoryImpl extends JDBCUtil implements CustomerReposito
 
             while (resultSet.next()) {
                 customerResponse.setId(resultSet.getLong("id"));
-                customerResponse.setName(resultSet.getString("name"));
-                customerResponse.setSurname(resultSet.getString("surname"));
+                customerResponse.setName(resultSet.getString("customer_name"));
+                customerResponse.setSurname(resultSet.getString("customer_surname"));
             }
 
         } catch (SQLException e) {
@@ -77,10 +76,9 @@ public class CustomerRepositoryImpl extends JDBCUtil implements CustomerReposito
             while (resultSet.next()) {
 
                 allCustomersWeHave.add(new CustomerResponse(resultSet.getLong("id"),
-                        resultSet.getString("name"), resultSet.getString("surname")));
-
+                        resultSet.getString("customer_name"),
+                        resultSet.getString("customer_surname")));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
