@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface CustomerService {
 
-    void saveUser(Customer userRequest) throws SQLException;
+    void saveCustomer(Customer userRequest) throws SQLException;
 
-    void deleteUserById(long id);
+    void deleteCustomerById(long id);
 
-    CustomerResponse findUserById(long id);
+    CustomerResponse findCustomerById(long id);
 
-    List<CustomerResponse> findAllUsers();
+    List<CustomerResponse> findAllCustomers();
 }

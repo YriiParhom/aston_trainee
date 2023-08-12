@@ -18,7 +18,7 @@ public class CustomerRepositoryImpl extends JDBCUtil implements CustomerReposito
     private final String FIND_ALL_CUSTOMERS = "select * from customer";
 
 
-    public void saveUser(Customer customer) {
+    public void saveCustomer(Customer customer) {
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(INSERT_INTO_TABLE)) {
 
@@ -32,7 +32,7 @@ public class CustomerRepositoryImpl extends JDBCUtil implements CustomerReposito
         }
     }
 
-    public void deleteUserById(long id) {
+    public void deleteCustomerById(long id) {
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_BY_ID)) {
 
@@ -45,7 +45,7 @@ public class CustomerRepositoryImpl extends JDBCUtil implements CustomerReposito
         }
     }
 
-    public CustomerResponse findUserById(long id) {
+    public CustomerResponse findCustomerById(long id) {
 
         CustomerResponse customerResponse = new CustomerResponse();
 
@@ -65,7 +65,7 @@ public class CustomerRepositoryImpl extends JDBCUtil implements CustomerReposito
         return customerResponse;
     }
 
-    public List<CustomerResponse> findAllUsers() {
+    public List<CustomerResponse> findAllCustomers() {
 
         List<CustomerResponse> allCustomersWeHave = new ArrayList<>();
 

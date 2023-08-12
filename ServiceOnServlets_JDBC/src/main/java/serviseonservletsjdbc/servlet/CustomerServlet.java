@@ -44,7 +44,7 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            customerController.saveUser(req.getReader(), resp);
+            customerController.saveCustomer(req.getReader(), resp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

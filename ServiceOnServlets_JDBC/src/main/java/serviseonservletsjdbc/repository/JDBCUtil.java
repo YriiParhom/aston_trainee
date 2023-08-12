@@ -1,12 +1,12 @@
 package serviseonservletsjdbc.repository;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.Properties;
 
 public class JDBCUtil {
@@ -33,6 +33,7 @@ public class JDBCUtil {
     private Properties getProperty() {
 
         Properties properties = new Properties();
+
 
         try (FileInputStream fileInputStream = new FileInputStream(
                 "D:\\JavaProjects\\AstonTrainee\\ServiceOnServlets_JDBC\\src\\main\\resources\\application.properties")) {

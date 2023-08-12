@@ -1,6 +1,5 @@
 package serviseonservletsjdbc.repository;
 
-import serviseonservletsjdbc.dto.CustomerResponse;
 import serviseonservletsjdbc.dto.OrderResponse;
 import serviseonservletsjdbc.entity.Order;
 
@@ -8,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
+public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository {
 
     private final String INSERT_INTO_TABLE = "insert into orders(order_name, price, customer_id)" +
             "values (?, ?, ?)";
@@ -23,9 +22,9 @@ public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
 
 
     @Override
-    public void saveOrder(Order orderRequest)  {
+    public void saveOrder(Order orderRequest) {
 
-        try(PreparedStatement preparedStatement = getConnection().prepareStatement(INSERT_INTO_TABLE)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(INSERT_INTO_TABLE)) {
 
             preparedStatement.setString(1, orderRequest.getName());
             preparedStatement.setDouble(2, orderRequest.getPrice());
@@ -40,7 +39,7 @@ public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
     @Override
     public void deleteOrderById(Long id) {
 
-        try(PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_ORDER_BY_ID)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_ORDER_BY_ID)) {
 
             preparedStatement.setLong(1, id);
 
@@ -80,11 +79,11 @@ public class OrderRepositoryImpl extends JDBCUtil implements OrderRepository{
 
         List<OrderResponse> orders = new ArrayList<>();
 
-        try(Statement statement = getConnection().createStatement()) {
+        try (Statement statement = getConnection().createStatement()) {
 
             ResultSet resultSet = statement.executeQuery(FIND_ALL_ORDERS);
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 orders.add(new OrderResponse(
                         resultSet.getLong("id"),
                         resultSet.getString("order_name"),

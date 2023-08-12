@@ -16,22 +16,22 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public void saveUser(Customer userRequest) throws SQLException {
-        customerRepository.saveUser(userRequest);
+    public void saveCustomer(Customer userRequest) throws SQLException {
+        customerRepository.saveCustomer(userRequest);
     }
 
     @Override
-    public void deleteUserById(long id) {
-        customerRepository.deleteUserById(id);
+    public void deleteCustomerById(long id) {
+        customerRepository.deleteCustomerById(id);
     }
 
     @Override
-    public CustomerResponse findUserById(long id) {
-        return customerRepository.findUserById(id);
+    public CustomerResponse findCustomerById(long id) {
+        return customerRepository.findCustomerById(id);
     }
 
     @Override
-    public List<CustomerResponse> findAllUsers() {
-        return customerRepository.findAllUsers();
+    public List<CustomerResponse> findAllCustomers() {
+        return customerRepository.findAllCustomers();
     }
 }
