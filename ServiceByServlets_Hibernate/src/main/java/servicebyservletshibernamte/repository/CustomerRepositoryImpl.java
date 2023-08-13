@@ -15,7 +15,7 @@ public class CustomerRepositoryImpl extends HibernateUtil implements CustomerRep
 
         Transaction transaction = session.beginTransaction();
 
-        session.save(customer);
+        session.persist(customer);
         transaction.commit();
 
         session.close();
